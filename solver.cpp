@@ -1,18 +1,20 @@
 #include <iostream>
 #include <vector>
 
+// Grid with example Sudoku in
 std::vector<std::vector<int>> grid = {
-  {0, 6, 0, 0, 0, 2, 8, 9, 0}, //00, 01, 02 etc
-  {0, 4, 0, 6, 0, 0, 0, 1, 5}, //10, 11, 12 etc
+  {0, 6, 0, 0, 0, 2, 8, 9, 0},
+  {0, 4, 0, 6, 0, 0, 0, 1, 5},
   {0, 0, 0, 0, 1, 0, 2, 0, 0},
   {0, 0, 8, 0, 0, 6, 0, 0, 0},
   {0, 0, 0, 4, 0, 7, 0, 0, 0},
   {0, 0, 0, 9, 0, 0, 6, 0, 0},
   {0, 0, 9, 0, 4, 0, 0, 0, 0},
   {8, 2, 0, 0, 0, 1, 0, 5, 0},
-  {0, 1, 7, 8, 0, 0, 0, 4, 0} //90, 91, 92 etc
+  {0, 1, 7, 8, 0, 0, 0, 4, 0}
 };
 
+// Assignment of the 3x3 squares. Annoying as feel there is a better way to do this though probbay not worth the time for the efficience
 std::vector<int> assignSquare(int row, int col) {
   std::vector<int> square;
   if (row >= 0 && row <= 2) square.push_back(0);
@@ -24,6 +26,7 @@ std::vector<int> assignSquare(int row, int col) {
   return square;
 }
 
+// Validation checks of each row, column and square and if Sudoku is complete
 bool checkRow(int num, int row) {
   for (int i = 0; i <= 8; i++)
     if (num == grid[row][i]) return false;
@@ -59,6 +62,7 @@ bool complete() {
     return true;
 }
 
+// Way of iterating through grid, feels like there is a better way
 std::vector<int> assignParams() {
   std::vector<int> params;
   for (int row = 0; row <= 8; row++)
@@ -72,6 +76,7 @@ std::vector<int> assignParams() {
     return {0, 0};
 }
 
+// Recursive backtracking solution
 bool solve() {
   int row, col;
   std::vector<int> params = assignParams();
@@ -87,6 +92,8 @@ bool solve() {
   }
   return false;
 }
+
+// Does what it says on the tin
 void printGrid() {
   for (int row = 0; row <= 8; row++) {
     for (int col = 0; col <= 8; col++) {
